@@ -7,9 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 public class RecordController implements RecordApi {
+
 
     private final RecordService recordService;
 
@@ -20,7 +24,9 @@ public class RecordController implements RecordApi {
     }
 
     @Override
-    public ResponseEntity<String> getAllRecord() {
-        return ResponseEntity.ok("STUB");
+    public ResponseEntity<RecordDto> getAllRecord(String rawTableName) {
+        List<Map<String, String>> allRecords = recordService.getAllRecords(rawTableName);
+        RecordDto response = new RecordDto(rawTableName, allRecords);
+        return ResponseEntity.ok().body(response);
     }
 }

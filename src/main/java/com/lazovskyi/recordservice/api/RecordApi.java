@@ -5,14 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/products")
+@RequestMapping
 public interface RecordApi {
 
-    @PostMapping("/add")
+    @PostMapping("/products/add")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<Void> addRecord(@RequestBody RecordDto recordDto);
 
-    @GetMapping("/all")
+    @GetMapping("/{rawTableName}/all")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<String> getAllRecord();
+    ResponseEntity<RecordDto> getAllRecord(@PathVariable("rawTableName") String rawTableName);
 }
